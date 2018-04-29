@@ -1,0 +1,7 @@
+{
+    "name": "ro-cloud/ro-user-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {}
+}
