@@ -1,0 +1,2 @@
+rocloud_user_bundle:
+    user_class: 'FOS\UserBundle\Model\User'
