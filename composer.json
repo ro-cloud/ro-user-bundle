@@ -21,11 +21,6 @@
     "require-dev": {
         "phpunit/phpunit": "^7.1"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.x-dev"
-        }
-    },
     "autoload": {
         "psr-4": {
             "RoCloud\\UserBundle\\": "src/"
