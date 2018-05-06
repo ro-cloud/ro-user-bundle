@@ -30,5 +30,10 @@
         "psr-4": {
             "RoCloud\\UserBundle\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "dev-feature/fos-userbundle-implementation"
+        }
     }
 }
