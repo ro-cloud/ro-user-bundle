@@ -14,7 +14,9 @@
     "require": {
         "php": "^7.2",
         "friendsofsymfony/user-bundle": "^2.1",
-        "symfony/http-kernel": "^3.0 || ^4.0"
+        "doctrine/doctrine-bundle": "^1.9",
+        "symfony/http-kernel": "^3.0 || ^4.0",
+        "symfony/console": "^3.0 || ^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.1"
@@ -26,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RoCloud\\UserBundle": "src/"
+            "RoCloud\\UserBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RoCloud\\UserBundle\\Tests": "tests/"
+            "RoCloud\\UserBundle\\Tests\\": "tests/"
         }
     }
 }
