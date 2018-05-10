@@ -1,0 +1,12 @@
+imports:
+    - { resource: 'commands.yml' }
+
+services:
+    rocloud.md5_encoder:
+        class: RoCloud\UserBundle\Encoder\Md5PasswordEncoder
+
+    rocloud.account_manager:
+        class: RoCloud\UserBundle\Entity\Manager\AccountManager
+        arguments:
+            - '@rocloud.md5_encoder'
+            - '@doctrine.orm.entity_manager.abstract'

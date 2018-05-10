@@ -5,9 +5,8 @@ namespace RoCloud\UserBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class RoCloudUserBundle.
+ * @author Black-Nobody <black-nobody@hotmail.de>
  */
 class RoCloudUserBundle extends Bundle
 {
-
 }

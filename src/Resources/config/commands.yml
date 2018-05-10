@@ -1,0 +1,9 @@
+services:
+    rocloud.commands.create_user:
+        class: RoCloud\UserBundle\Command\CreateIngameAccountCommand
+        arguments:
+            - ~
+            - '@fos_user.user_manager.default'
+            - '@rocloud.account_manager'
+        tags:
+            - { name: 'console.command', command: 'ro:create-user'}

@@ -21,15 +21,15 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('rocloud_user_bundle');
 
-        $rootNode
-            ->children()
-                ->scalarNode('account_class')
-                    ->defaultValue(IngameAccount::class)
-                ->end()
-                ->scalarNode('user_class')
-                    ->isRequired()
-                ->end()
-            ->end();
+//        $rootNode
+//            ->children()
+//                ->scalarNode('account_class')
+//                    ->defaultValue(IngameAccount::class)
+//                ->end()
+//                ->scalarNode('user_class')
+//                    ->isRequired()
+//                ->end()
+//            ->end();
 
         return $treeBuilder;
     }
