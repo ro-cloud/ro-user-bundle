@@ -9,4 +9,4 @@ services:
         class: RoCloud\UserBundle\Entity\Manager\AccountManager
         arguments:
             - '@rocloud.md5_encoder'
-            - '@doctrine.orm.entity_manager.abstract'
+            - "@=service('doctrine.orm.entity_manager').getRepository('RoCloudUserBundle:IngameAccount')"

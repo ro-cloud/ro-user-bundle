@@ -44,6 +44,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $accountManager
             ->create($accountName, $password, $email, true)
             ->willReturn($ingameAccount->reveal());
+        $accountManager->exists($username)->willReturn(false);
 
         $entityManager = $this->prophesize(EntityManager::class);
         $entityManager
