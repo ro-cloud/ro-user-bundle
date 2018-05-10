@@ -1,0 +1,5 @@
+services:
+    rocloud.event_subscriber.user_extender:
+        class: RoCloud\UserBundle\EventSubscriber\UserExtenderEventSubscriber
+        arguments:
+            - ~
