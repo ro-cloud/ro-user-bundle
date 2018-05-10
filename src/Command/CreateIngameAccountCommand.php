@@ -123,7 +123,7 @@ class CreateIngameAccountCommand extends Command
         $accountName = $input->getArgument('account-name');
         $password = $input->getArgument('password');
 
-        if ($this->accountManager->exists($username)) {
+        if (!$this->accountManager->exists($username)) {
             $newAccount = $this->accountManager
                 ->create($accountName, $password, $user->getEmail(), $input->getOption('active'));
             $this->entityManager->persist($newAccount);
