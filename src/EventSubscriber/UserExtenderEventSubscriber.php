@@ -29,15 +29,15 @@ class UserExtenderEventSubscriber implements EventSubscriber
     public function getSubscribedEvents()
     {
         return [
-            'extendAssociations',
+            'loadClassMetadata',
         ];
     }
 
-    public function extendAssociations(LoadClassMetadataEventArgs $eventArgs)
+    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         $metadata = $eventArgs->getClassMetadata();
 
-        if (array_key_exists('class', $this->user) && $metadata->getName() !== $this->user) {
+        if (array_key_exists('class', $this->user) && $metadata->getName() !== $this->user['class']) {
             return;
         }
 
