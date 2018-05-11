@@ -25,12 +25,12 @@ class RoCloudUserExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        if (! is_null($config['user'])) {
-            $this->processUserConfig($config['user'], $container);
-        }
-
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
+
+        if (isset($config['user'])) {
+            $this->processUserConfig($config['user'], $container);
+        }
     }
 
     /**
