@@ -42,7 +42,7 @@ class RoCloudUserExtension extends Extension
         $eventSubscriber = $container->getDefinition('rocloud.event_subscriber.user_extender');
 
         $eventSubscriber
-            ->setArgument('user', $userConfig)
+            ->replaceArgument(0, $userConfig)
             ->addTag('doctrine.event_subscriber');
     }
 }
