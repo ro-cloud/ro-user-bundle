@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('class')->end()
                         ->arrayNode('mapping')
+                            ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('field')
                                     ->defaultValue('accounts')
