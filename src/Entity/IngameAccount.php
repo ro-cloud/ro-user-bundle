@@ -403,10 +403,10 @@ class IngameAccount implements IngameAccountInterface
         // @TODO: Refactor later to make this a little nicer
         if (filter_var($lastIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             // This will replace last two segments by '0'
-            $lastIp = inet_ntop(inet_pton($lastIp) & '255.255.0.0');
+            $lastIp = inet_ntop(inet_pton($lastIp) & inet_pton('255.255.0.0'));
         } elseif (filter_var($lastIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
             // Thi will replace last 6 segments to '0000'
-            $lastIp = inet_ntop(inet_pton($lastIp) & 'ffff:ffff:0000:0000:0000:0000:0000:0000');
+            $lastIp = inet_ntop(inet_pton($lastIp) & inet_pton('ffff:ffff:0000:0000:0000:0000:0000:0000'));
         }
 
         $this->lastIp = $lastIp;
