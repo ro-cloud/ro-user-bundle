@@ -3,7 +3,7 @@ services:
         class: RoCloud\UserBundle\Command\CreateIngameAccountCommand
         arguments:
             - ~
-            - '@fos_user.user_manager.default'
+            - '@doctrine.orm.entity_manager'
             - '@rocloud.account_manager'
         tags:
             - { name: 'console.command', command: 'ro:create-user'}
