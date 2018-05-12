@@ -3,6 +3,7 @@
 namespace RoCloud\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @author Black-Nobody <black-nobody@hotmail.de>
@@ -25,6 +26,8 @@ class IngameAccount implements IngameAccountInterface
      * @var string
      *
      * @ORM\Column(name="userid", type="string", length=23, nullable=false)
+     *
+     * @Assert\NotBlank
      */
     protected $userid;
 
@@ -32,6 +35,8 @@ class IngameAccount implements IngameAccountInterface
      * @var string
      *
      * @ORM\Column(name="user_pass", type="string", length=32, nullable=false)
+     *
+     * @Assert\NotBlank
      */
     protected $userPass;
 
@@ -39,6 +44,8 @@ class IngameAccount implements IngameAccountInterface
      * @var string - Can only be 'M' => male, 'F' => female or 'S' => server
      *
      * @ORM\Column(name="sex", type="string", length=1, nullable=false)
+     *
+     * @Assert\Choice(choices={"M", "F", "S"})
      */
     protected $sex;
 
@@ -46,6 +53,7 @@ class IngameAccount implements IngameAccountInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=39, nullable=false)
+     * @Assert\Email
      */
     protected $email;
 
@@ -61,7 +69,7 @@ class IngameAccount implements IngameAccountInterface
      *
      * @ORM\Column(name="state", type="integer", length=11, nullable=false, options={"unsigned":true})
      */
-    protected $state;
+    protected $state = 0;
 
     /**
      * @var integer - Timestamp
@@ -82,7 +90,7 @@ class IngameAccount implements IngameAccountInterface
      *
      * @ORM\Column(name="logincount", type="integer", length=9, nullable=false, options={"unsigned":true})
      */
-    protected $logincount;
+    protected $logincount = 0;
 
     /**
      * @var \DateTime
@@ -92,9 +100,13 @@ class IngameAccount implements IngameAccountInterface
     protected $lastlogin;
 
     /**
+     * The IP address will be masked on save. There's no reason to save it anyway.
+     *
      * @var string
      *
      * @ORM\Column(name="last_ip", type="string", length=100, nullable=false)
+     *
+     * @Assert\Ip
      */
     protected $lastIp;
 
@@ -382,6 +394,15 @@ class IngameAccount implements IngameAccountInterface
      */
     public function setLastIp(string $lastIp): IngameAccount
     {
+        // @TODO: Refactor later to make this a little nicer
+        if (filter_var($lastIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            // This will replace last two segments by '0'
+            $lastIp = inet_ntop(inet_pton($lastIp) & '255.255.0.0');
+        } elseif (filter_var($lastIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            // Thi will replace last 6 segments to '0000'
+            $lastIp = inet_ntop(inet_pton($lastIp) & 'ffff:ffff:0000:0000:0000:0000:0000:0000');
+        }
+
         $this->lastIp = $lastIp;
 
         return $this;
