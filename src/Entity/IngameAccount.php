@@ -176,9 +176,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $accountId
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setAccountId(int $accountId): IngameAccount
+    public function setAccountId(int $accountId): IngameAccountInterface
     {
         $this->accountId = $accountId;
 
@@ -196,9 +196,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param string $userid
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setUserid(string $userid): IngameAccount
+    public function setUserid(string $userid): IngameAccountInterface
     {
         $this->userid = $userid;
 
@@ -216,9 +216,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param string $userPass
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setUserPass(string $userPass): IngameAccount
+    public function setUserPass(string $userPass): IngameAccountInterface
     {
         $this->userPass = $userPass;
 
@@ -236,9 +236,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param string $sex
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setSex(string $sex): IngameAccount
+    public function setSex(string $sex): IngameAccountInterface
     {
         $this->sex = $sex;
 
@@ -256,9 +256,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param string $email
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setEmail(string $email): IngameAccount
+    public function setEmail(string $email): IngameAccountInterface
     {
         $this->email = $email;
 
@@ -276,9 +276,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $groupId
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setGroupId(int $groupId): IngameAccount
+    public function setGroupId(int $groupId): IngameAccountInterface
     {
         $this->groupId = $groupId;
 
@@ -296,9 +296,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $state
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setState(int $state): IngameAccount
+    public function setState(int $state): IngameAccountInterface
     {
         $this->state = $state;
 
@@ -316,9 +316,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $unbanTime
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setUnbanTime(int $unbanTime): IngameAccount
+    public function setUnbanTime(int $unbanTime): IngameAccountInterface
     {
         $this->unbanTime = $unbanTime;
 
@@ -328,7 +328,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getExpirationTime(): ?int
+    public function getExpirationTime(): int
     {
         return $this->expirationTime;
     }
@@ -336,9 +336,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $expirationTime
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setExpirationTime(int $expirationTime): IngameAccount
+    public function setExpirationTime(int $expirationTime): IngameAccountInterface
     {
         $this->expirationTime = $expirationTime;
 
@@ -356,9 +356,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $logincount
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setLogincount(int $logincount): IngameAccount
+    public function setLogincount(int $logincount): IngameAccountInterface
     {
         $this->logincount = $logincount;
 
@@ -376,9 +376,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param \DateTime $lastlogin
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setLastlogin(\DateTime $lastlogin): IngameAccount
+    public function setLastlogin(\DateTime $lastlogin): IngameAccountInterface
     {
         $this->lastlogin = $lastlogin;
 
@@ -396,9 +396,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param string $lastIp
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setLastIp(string $lastIp): IngameAccount
+    public function setLastIp(string $lastIp): IngameAccountInterface
     {
         // @TODO: Refactor later to make this a little nicer
         if (filter_var($lastIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
@@ -425,9 +425,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param \DateTime $birthdate
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setBirthdate(\DateTime $birthdate): IngameAccount
+    public function setBirthdate(\DateTime $birthdate): IngameAccountInterface
     {
         $this->birthdate = $birthdate;
 
@@ -445,9 +445,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $characterSlots
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setCharacterSlots(int $characterSlots): IngameAccount
+    public function setCharacterSlots(int $characterSlots): IngameAccountInterface
     {
         $this->characterSlots = $characterSlots;
 
@@ -465,9 +465,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param string $pincode
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setPincode(string $pincode): IngameAccount
+    public function setPincode(string $pincode): IngameAccountInterface
     {
         $this->pincode = $pincode;
 
@@ -485,9 +485,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $pincodeChange
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setPincodeChange(int $pincodeChange): IngameAccount
+    public function setPincodeChange(int $pincodeChange): IngameAccountInterface
     {
         $this->pincodeChange = $pincodeChange;
 
@@ -505,9 +505,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $vipTime
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setVipTime(int $vipTime): IngameAccount
+    public function setVipTime(int $vipTime): IngameAccountInterface
     {
         $this->vipTime = $vipTime;
 
@@ -525,9 +525,9 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param int $oldGroup
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
-    public function setOldGroup(int $oldGroup): IngameAccount
+    public function setOldGroup(int $oldGroup): IngameAccountInterface
     {
         $this->oldGroup = $oldGroup;
 
@@ -565,7 +565,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @param UserInterface $owner
      *
-     * @return IngameAccount
+     * @return IngameAccountInterface
      */
     public function setOwner(UserInterface $owner): IngameAccountInterface
     {

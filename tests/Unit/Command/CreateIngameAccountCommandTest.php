@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use RoCloud\UserBundle\Command\CreateIngameAccountCommand;
 use RoCloud\UserBundle\Entity\IngameAccountInterface;
 use RoCloud\UserBundle\Entity\Manager\AccountManagerInterface;
@@ -33,6 +34,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $user->getEmail()->willReturn($email);
 
         $ingameAccount = $this->prophesize(IngameAccountInterface::class);
+        $ingameAccount->setOwner(Argument::type(UserInterface::class))->willReturn($ingameAccount->reveal());
 
         $userManager = $this->prophesize(UserManagerInterface::class);
         $userManager

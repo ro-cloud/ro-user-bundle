@@ -99,7 +99,7 @@ interface IngameAccountInterface
      *
      * @return IngameAccountInterface
      */
-    public function setState();
+    public function setState(int $state): IngameAccountInterface;
 
     /**
      * @return int
