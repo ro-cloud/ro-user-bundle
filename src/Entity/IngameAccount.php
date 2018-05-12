@@ -68,28 +68,28 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @var int
      *
-     * @ORM\Column(name="state", type="integer", length=11, nullable=false, options={"unsigned":true})
+     * @ORM\Column(name="state", type="integer", length=11, nullable=false, options={"unsigned":true, "default": 0})
      */
     protected $state = 0;
 
     /**
      * @var integer - Timestamp
      *
-     * @ORM\Column(name="unban_time", type="integer", length=11, nullable=false, options={"unsigned": true})
+     * @ORM\Column(name="unban_time", type="integer", length=11, nullable=false, options={"unsigned": true, "default": 0})
      */
     protected $unbanTime = 0;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="expiration_time", type="integer", length=11, nullable=false, options={"unsigned":true})
+     * @ORM\Column(name="expiration_time", type="integer", length=11, nullable=false, options={"unsigned":true, "default": 0})
      */
-    protected $expirationTime;
+    protected $expirationTime = 0;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="logincount", type="integer", length=9, nullable=false, options={"unsigned":true})
+     * @ORM\Column(name="logincount", type="integer", length=9, nullable=false, options={"unsigned":true, "default": 0})
      */
     protected $logincount = 0;
 
@@ -135,16 +135,16 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @var int
      *
-     * @ORM\Column(name="pincode_change", type="integer", length=11, nullable=false, options={"unsigned":true})
+     * @ORM\Column(name="pincode_change", type="integer", length=11, nullable=false, options={"unsigned":true, "default": 0})
      */
-    protected $pincodeChange;
+    protected $pincodeChange = 0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="vip_time", type="integer", length=11, nullable=false, options={"unsigned":true})
+     * @ORM\Column(name="vip_time", type="integer", length=11, nullable=false, options={"unsigned":true, "default": 0})
      */
-    protected $vipTime;
+    protected $vipTime = 0;
 
     /**
      * @var int
@@ -159,6 +159,11 @@ class IngameAccount implements IngameAccountInterface
      * @ORM\ManyToOne(targetEntity="RoCloud\UserBundle\Entity\OwnerInterface", inversedBy="accounts")
      */
     protected $owner;
+
+    public function __construct()
+    {
+        $this->lastlogin = new \DateTime();
+    }
 
     /**
      * @return int
@@ -536,7 +541,7 @@ class IngameAccount implements IngameAccountInterface
      */
     public function isActive(): bool
     {
-        return $this->isBanned() || new \DateTime() > $this->getExpirationTime();
+        return $this->isBanned() || (new \DateTime())->getTimestamp() > $this->getExpirationTime();
     }
 
     /**
