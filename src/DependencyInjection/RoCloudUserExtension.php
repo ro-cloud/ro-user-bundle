@@ -27,22 +27,5 @@ class RoCloudUserExtension extends Extension
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-
-        if (isset($config['user'])) {
-            $this->processUserConfig($config['user'], $container);
-        }
-    }
-
-    /**
-     * @param array $userConfig
-     * @param ContainerBuilder $container
-     */
-    protected function processUserConfig(array $userConfig, ContainerBuilder $container)
-    {
-        $eventSubscriber = $container->getDefinition('rocloud.event_subscriber.user_extender');
-
-        $eventSubscriber
-            ->replaceArgument(0, $userConfig)
-            ->addTag('doctrine.event_subscriber');
     }
 }

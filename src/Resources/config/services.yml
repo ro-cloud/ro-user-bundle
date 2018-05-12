@@ -1,6 +1,5 @@
 imports:
     - { resource: 'commands.yml' }
-    - { resource: 'events.yml' }
 
 services:
     rocloud.md5_encoder:

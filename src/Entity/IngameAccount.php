@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @author Black-Nobody <black-nobody@hotmail.de>
  *
- * @ORM\Entity(repositoryClass="RoCloud\UserBundle\Repository\IngameAccountRepository")
  * @ORM\Table(name="login")
+ * @ORM\Entity(repositoryClass="RoCloud\UserBundle\Repository\IngameAccountRepository")
  */
 class IngameAccount implements IngameAccountInterface
 {
@@ -139,6 +139,13 @@ class IngameAccount implements IngameAccountInterface
      * @ORM\Column(name="old_group", type="smallint", length=3, nullable=false, options={"unsigned":true, "default": 0})
      */
     protected $oldGroup = 0;
+
+    /**
+     * @var OwnerInterface
+     *
+     * @ORM\ManyToOne(targetEntity="RoCloud\UserBundle\Entity\OwnerInterface", inversedBy="accounts")
+     */
+    protected $owner;
 
     /**
      * @return int
@@ -518,5 +525,25 @@ class IngameAccount implements IngameAccountInterface
     public function isBanned(): bool
     {
         return $this->state > 0 || (new \DateTime())->getTimestamp() < $this->getUnbanTime();
+    }
+
+    /**
+     * @return OwnerInterface
+     */
+    public function getOwner(): OwnerInterface
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param OwnerInterface $owner
+     *
+     * @return IngameAccount
+     */
+    public function setOwner(OwnerInterface $owner): IngameAccount
+    {
+        $this->owner = $owner;
+
+        return $this;
     }
 }
