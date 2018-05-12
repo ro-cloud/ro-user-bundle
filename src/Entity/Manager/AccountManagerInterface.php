@@ -26,11 +26,18 @@ interface AccountManagerInterface
      * @param string $username
      * @param string $password
      * @param string $email
+     * @param string $sex
      * @param bool $active
      *
      * @return IngameAccountInterface
      */
-    public function create(string $username, string $password, string $email, bool $active): IngameAccountInterface;
+    public function create(
+        string $username,
+        string $password,
+        string $email,
+        string $sex,
+        bool $active
+    ): IngameAccountInterface;
 
     /**
      * Checks if an account already exists
@@ -39,7 +46,7 @@ interface AccountManagerInterface
      *
      * @return bool
      */
-    public function exists(string $username): bool ;
+    public function exists(string $username): bool;
 
     /**
      * Sets the values for banning an account

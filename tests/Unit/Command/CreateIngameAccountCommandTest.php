@@ -1,6 +1,6 @@
 <?php
 
-namespace RoCloud\UserBundle\Tests\Functional\Command;
+namespace RoCloud\UserBundle\Tests\Unit\Command;
 
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
@@ -27,6 +27,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $accountName = 'new-account-username';
         $password = '1234password';
         $email = "test@email.tld";
+        $sex = 'M';
 
         $user = $this->prophesize(UserInterface::class);
         $user->getEmail()->willReturn($email);
@@ -40,7 +41,7 @@ class CreateIngameAccountCommandTest extends TestCase
 
         $accountManager = $this->prophesize(AccountManagerInterface::class);
         $accountManager
-            ->create($accountName, $password, $email, true)
+            ->create($accountName, $password, $email, $sex, true)
             ->willReturn($ingameAccount->reveal());
         $accountManager->exists($username)->willReturn(false);
 
@@ -48,6 +49,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $entityManager
             ->persist($ingameAccount->reveal())
             ->shouldBeCalled();
+        $entityManager->flush()->shouldBeCalled();
 
         $application = new Application();
         $application->add(
@@ -62,7 +64,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $command = $application->find('ro:create-user');
 
         $tester = new CommandTester($command);
-        $tester->setInputs([$username, $accountName]);
+        $tester->setInputs([$username, $accountName, $sex]);
         $tester->execute([
             'password' => $password,
         ]);
@@ -83,6 +85,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $username = 'test-username';
         $accountName = 'new-account-username';
         $password = '1234password';
+        $sex = "M";
         $email = "test@email.tld";
 
         $ingameAccount = $this->prophesize(IngameAccountInterface::class);
@@ -94,10 +97,11 @@ class CreateIngameAccountCommandTest extends TestCase
 
         $accountManager = $this->prophesize(AccountManagerInterface::class);
         $accountManager->exists($username)->willReturn(true);
-        $accountManager->create($accountName, $password, $email, true)->shouldNotBeCalled();
+        $accountManager->create($accountName, $password, $email, $sex, true)->shouldNotBeCalled();
 
         $entityManager = $this->prophesize(EntityManager::class);
         $entityManager->persist($ingameAccount->reveal())->shouldNotBeCalled();
+        $entityManager->flush()->shouldNotBeCalled();
 
         $application = new Application();
         $application->add(
@@ -112,7 +116,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $command = $application->find('ro:create-user');
 
         $tester = new CommandTester($command);
-        $tester->setInputs([$username, $accountName]);
+        $tester->setInputs([$username, $accountName, $sex]);
         $tester->execute([
             'password' => $password,
         ]);
@@ -129,6 +133,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $username = 'username';
         $password = '123456';
         $accountName = 'test-accountname';
+        $sex = 'M';
 
         $entityManager = $this->prophesize(EntityManager::class);
         $accountManager = $this->prophesize(AccountManagerInterface::class);
@@ -150,7 +155,7 @@ class CreateIngameAccountCommandTest extends TestCase
         $command = $application->find('ro:create-user');
 
         $tester = new CommandTester($command);
-        $tester->setInputs([$username, $accountName]);
+        $tester->setInputs([$username, $accountName, $sex]);
         $tester->execute([
             'password' => $password,
         ]);

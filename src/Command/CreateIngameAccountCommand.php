@@ -73,6 +73,11 @@ class CreateIngameAccountCommand extends Command
                     'The ingame account name'
                 ),
                 new InputArgument(
+                    'gender',
+                    InputArgument::REQUIRED,
+                    'The gender for the new account'
+                ),
+                new InputArgument(
                     'password',
                     InputArgument::REQUIRED,
                     'Leave this empty, to enter the password hidden'
@@ -99,6 +104,11 @@ class CreateIngameAccountCommand extends Command
         if (empty($input->getArgument('account-name'))) {
             $accountName = $consoleHelper->ask('Please enter a name for the ingame account');
             $input->setArgument('account-name', $accountName);
+        }
+
+        if (empty($input->getArgument('gender'))) {
+            $gender = $consoleHelper->ask('Please enter a gender for the new ingame account');
+            $input->setArgument('gender', $gender);
         }
 
         if (empty($input->getArgument('password'))) {
@@ -137,8 +147,18 @@ class CreateIngameAccountCommand extends Command
         }
 
         $newAccount = $this->accountManager
-            ->create($accountName, $password, $user->getEmail(), $input->getOption('active'));
+            ->create(
+                $accountName,
+                $password,
+                $user->getEmail(),
+                $input->getArgument('gender'),
+                $input->getOption('active')
+            );
+
+        $newAccount->setOwner($user);
+
         $this->entityManager->persist($newAccount);
+        $this->entityManager->flush();
 
         return 0;
     }

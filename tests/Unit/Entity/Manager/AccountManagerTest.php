@@ -23,6 +23,7 @@ class AccountManagerTest extends TestCase
         $username = 'test';
         $password = '123456';
         $email = 'test@example.tld';
+        $sex = 'M';
         $active = true;
 
         $passwordEncoder = $this->prophesize(PasswordEncoderInterface::class);
@@ -37,13 +38,14 @@ class AccountManagerTest extends TestCase
 
         $sut = new AccountManager($passwordEncoder->reveal(), $accountRepository->reveal());
         /** @var IngameAccount $newAccount */
-        $newAccount = $sut->create($username, $password, $email, $active);
+        $newAccount = $sut->create($username, $password, $email, $sex, $active);
 
         $this->assertInstanceOf(IngameAccountInterface::class, $newAccount);
         $this->assertEquals($username, $newAccount->getUserid());
         $this->assertEquals(md5($password), $newAccount->getUserPass());
         $this->assertEquals($email, $newAccount->getEmail());
         $this->assertEquals($active, $newAccount->isActive());
+        $this->assertEquals($sex, $newAccount->getSex());
         $this->assertFalse($newAccount->isBanned());
     }
 
@@ -55,6 +57,7 @@ class AccountManagerTest extends TestCase
         $username = 'test';
         $password = '123456';
         $email = 'test@example.tld';
+        $sex = 'M';
         $active = true;
 
         $passwordEncoder = $this->prophesize(PasswordEncoderInterface::class);
@@ -67,7 +70,7 @@ class AccountManagerTest extends TestCase
 
         $sut = new AccountManager($passwordEncoder->reveal(), $accountRepository->reveal());
         /** @var IngameAccount $newAccount */
-        $newAccount = $sut->create($username, $password, $email, $active);
+        $newAccount = $sut->create($username, $password, $email, $sex, $active);
 
         $updatedAccount = $sut->ban($newAccount);
 
@@ -83,6 +86,7 @@ class AccountManagerTest extends TestCase
         $username = 'test';
         $password = '123456';
         $email = 'test@example.tld';
+        $sex = 'M';
         $active = true;
 
         $passwordEncoder = $this->prophesize(PasswordEncoderInterface::class);
@@ -95,7 +99,7 @@ class AccountManagerTest extends TestCase
 
         $sut = new AccountManager($passwordEncoder->reveal(), $accountRepository->reveal());
         /** @var IngameAccount $newAccount */
-        $newAccount = $sut->create($username, $password, $email, $active);
+        $newAccount = $sut->create($username, $password, $email, $sex, $active);
 
         $banUntil = new \DateTime('+1 week');
         $sut->banFor($newAccount, $banUntil);
@@ -116,6 +120,7 @@ class AccountManagerTest extends TestCase
         $username = 'test';
         $password = '123456';
         $email = 'test@example.tld';
+        $sex = 'M';
         $active = true;
 
         $groupId = 99;
@@ -130,7 +135,7 @@ class AccountManagerTest extends TestCase
 
         $sut = new AccountManager($passwordEncoder->reveal(), $accountRepository->reveal());
         /** @var IngameAccount $newAccount */
-        $newAccount = $sut->create($username, $password, $email, $active);
+        $newAccount = $sut->create($username, $password, $email, $sex, $active);
 
         $sut->changeGroup($newAccount, $groupId);
 
@@ -145,9 +150,7 @@ class AccountManagerTest extends TestCase
         $username = 'test';
 
         $account = $this->prophesize(IngameAccountInterface::class);
-
         $passwordEncoder = $this->prophesize(PasswordEncoderInterface::class);
-
         $accountRepository = $this->prophesize(IngameAccountRepository::class);
         $accountRepository
             ->findOneByUsername($username)

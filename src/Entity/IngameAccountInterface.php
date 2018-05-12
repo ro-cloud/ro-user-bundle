@@ -2,6 +2,8 @@
 
 namespace RoCloud\UserBundle\Entity;
 
+use FOS\UserBundle\Model\UserInterface;
+
 /**
  * @author Black-Nobody <black-nobody@hotmail.de>
  */
@@ -45,4 +47,11 @@ interface IngameAccountInterface
      * @return bool
      */
     public function isBanned(): bool;
+
+    /**
+     * @param UserInterface $owner
+     *
+     * @return mixed
+     */
+    public function setOwner(UserInterface $owner);
 }

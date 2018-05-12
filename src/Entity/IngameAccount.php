@@ -3,6 +3,7 @@
 namespace RoCloud\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -549,19 +550,19 @@ class IngameAccount implements IngameAccountInterface
     }
 
     /**
-     * @return OwnerInterface
+     * @return UserInterface
      */
-    public function getOwner(): OwnerInterface
+    public function getOwner(): UserInterface
     {
         return $this->owner;
     }
 
     /**
-     * @param OwnerInterface $owner
+     * @param UserInterface $owner
      *
      * @return IngameAccount
      */
-    public function setOwner(OwnerInterface $owner): IngameAccount
+    public function setOwner(UserInterface $owner): IngameAccount
     {
         $this->owner = $owner;
 

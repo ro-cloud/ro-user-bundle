@@ -36,8 +36,13 @@ class AccountManager implements AccountManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function create(string $username, string $password, string $email, bool $active): IngameAccountInterface
-    {
+    public function create(
+        string $username,
+        string $password,
+        string $email,
+        string $sex,
+        bool $active
+    ): IngameAccountInterface {
         /**
          * @TODO: Make the account configurable for future versions
          */
@@ -45,7 +50,8 @@ class AccountManager implements AccountManagerInterface
         $user
             ->setUserid($username)
             ->setUserPass($this->hashPassword($password))
-            ->setEmail($email);
+            ->setEmail($email)
+            ->setSex($sex);
 
         if ($active) {
             $user->setState(AccountManagerInterface::STATE_UNBANNED);
