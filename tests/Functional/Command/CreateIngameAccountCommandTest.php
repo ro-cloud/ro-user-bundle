@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 use RoCloud\UserBundle\Command\CreateIngameAccountCommand;
 use RoCloud\UserBundle\Entity\IngameAccountInterface;
 use RoCloud\UserBundle\Entity\Manager\AccountManagerInterface;
-use RoCloud\UserBundle\Repository\IngameAccountRepository;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -39,7 +38,6 @@ class CreateIngameAccountCommandTest extends TestCase
             ->findUserByUsername($username)
             ->willReturn($user->reveal());
 
-        $accountRepository = $this->prophesize(IngameAccountRepository::class);
         $accountManager = $this->prophesize(AccountManagerInterface::class);
         $accountManager
             ->create($accountName, $password, $email, true)
@@ -47,10 +45,6 @@ class CreateIngameAccountCommandTest extends TestCase
         $accountManager->exists($username)->willReturn(false);
 
         $entityManager = $this->prophesize(EntityManager::class);
-        $entityManager
-            ->getRepository('RoCloudUserBundle:IngameAccount')
-            ->willReturn($accountRepository->reveal());
-
         $entityManager
             ->persist($ingameAccount->reveal())
             ->shouldBeCalled();
@@ -76,5 +70,89 @@ class CreateIngameAccountCommandTest extends TestCase
         $output = $tester->getDisplay();
         $this->assertContains('Please enter a username the new account will be created for', $output);
         $this->assertContains('Please enter a name for the ingame account', $output);
+    }
+
+    /**
+     * @test
+     * @expectedException \RoCloud\UserBundle\Exception\AccountAlreadyExistsException
+     * @expectedExceptionMessage Account with the name "test-username" already exists
+     * @expectedExceptionCode 1525989415
+     */
+    public function itThrowsExceptionWhenAccountAlreadyExists()
+    {
+        $username = 'test-username';
+        $accountName = 'new-account-username';
+        $password = '1234password';
+        $email = "test@email.tld";
+
+        $ingameAccount = $this->prophesize(IngameAccountInterface::class);
+        $user = $this->prophesize(UserInterface::class);
+        $user->getEmail()->shouldNotBeCalled();
+
+        $userManager = $this->prophesize(UserManagerInterface::class);
+        $userManager->findUserByUsername($username)->willReturn($user->reveal());
+
+        $accountManager = $this->prophesize(AccountManagerInterface::class);
+        $accountManager->exists($username)->willReturn(true);
+        $accountManager->create($accountName, $password, $email, true)->shouldNotBeCalled();
+
+        $entityManager = $this->prophesize(EntityManager::class);
+        $entityManager->persist($ingameAccount->reveal())->shouldNotBeCalled();
+
+        $application = new Application();
+        $application->add(
+            new CreateIngameAccountCommand(
+                null,
+                $entityManager->reveal(),
+                $accountManager->reveal(),
+                $userManager->reveal()
+            )
+        );
+
+        $command = $application->find('ro:create-user');
+
+        $tester = new CommandTester($command);
+        $tester->setInputs([$username, $accountName]);
+        $tester->execute([
+            'password' => $password,
+        ]);
+    }
+
+    /**
+     * @test
+     * @expectedException \RoCloud\UserBundle\Exception\UserNotFoundException
+     * @expectedExceptionCode 1525989446
+     * @expectedExceptionMessage User "username" not found
+     */
+    public function itThrowsExceptionWhenNoUserCouldBeFound()
+    {
+        $username = 'username';
+        $password = '123456';
+        $accountName = 'test-accountname';
+
+        $entityManager = $this->prophesize(EntityManager::class);
+        $accountManager = $this->prophesize(AccountManagerInterface::class);
+        $userManager = $this->prophesize(UserManagerInterface::class);
+        $userManager
+            ->findUserByUsername($username)
+            ->willReturn(null);
+
+        $application = new Application();
+        $application->add(
+            new CreateIngameAccountCommand(
+                null,
+                $entityManager->reveal(),
+                $accountManager->reveal(),
+                $userManager->reveal()
+            )
+        );
+
+        $command = $application->find('ro:create-user');
+
+        $tester = new CommandTester($command);
+        $tester->setInputs([$username, $accountName]);
+        $tester->execute([
+            'password' => $password,
+        ]);
     }
 }

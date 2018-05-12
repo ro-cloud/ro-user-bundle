@@ -5,6 +5,8 @@ namespace RoCloud\UserBundle\Command;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserManagerInterface;
 use RoCloud\UserBundle\Entity\Manager\AccountManagerInterface;
+use RoCloud\UserBundle\Exception\AccountAlreadyExistsException;
+use RoCloud\UserBundle\Exception\UserNotFoundException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,6 +15,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
+ * This command currently only works for systems, where a "master account" exists for individual ingame accounts
+ *
  * @author Black-Nobody <black-nobody@hotmail.de>
  */
 class CreateIngameAccountCommand extends Command
@@ -116,21 +120,26 @@ class CreateIngameAccountCommand extends Command
         $user = $this->userManager->findUserByUsername($username);
 
         if (empty($user)) {
-            // @TODO: Replace generic exception by more verbose one
-            throw new \Exception('User not found');
+            throw new UserNotFoundException(
+                sprintf('User "%s" not found', $username),
+                1525989446
+            );
         }
 
         $accountName = $input->getArgument('account-name');
         $password = $input->getArgument('password');
 
-        if (!$this->accountManager->exists($username)) {
-            $newAccount = $this->accountManager
-                ->create($accountName, $password, $user->getEmail(), $input->getOption('active'));
-            $this->entityManager->persist($newAccount);
-
-            return 0;
+        if ($this->accountManager->exists($username)) {
+            throw new AccountAlreadyExistsException(
+                sprintf('Account with the name "%s" already exists', $username),
+                1525989415
+            );
         }
 
-        return -1;
+        $newAccount = $this->accountManager
+            ->create($accountName, $password, $user->getEmail(), $input->getOption('active'));
+        $this->entityManager->persist($newAccount);
+
+        return 0;
     }
 }
