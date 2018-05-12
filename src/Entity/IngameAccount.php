@@ -105,7 +105,7 @@ class IngameAccount implements IngameAccountInterface
      *
      * @var string
      *
-     * @ORM\Column(name="last_ip", type="string", length=100, nullable=false)
+     * @ORM\Column(name="last_ip", type="string", length=100, nullable=false, options={"default": ''})
      *
      * @Assert\Ip
      */
