@@ -567,7 +567,7 @@ class IngameAccount implements IngameAccountInterface
      *
      * @return IngameAccount
      */
-    public function setOwner(UserInterface $owner): IngameAccount
+    public function setOwner(UserInterface $owner): IngameAccountInterface
     {
         $this->owner = $owner;
 
