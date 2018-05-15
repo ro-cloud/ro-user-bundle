@@ -14,7 +14,7 @@ interface IngameAccountInterface
      *
      * @return int
      */
-    public function getAccountId(): int;
+    public function getAccountId(): ?int;
 
     /**
      * Sets the account id
@@ -28,7 +28,7 @@ interface IngameAccountInterface
     /**
      * @return string
      */
-    public function getUserid(): string;
+    public function getUserid(): ?string;
 
     /**
      * @param string $userid
@@ -40,7 +40,7 @@ interface IngameAccountInterface
     /**
      * @return string
      */
-    public function getUserPass(): string;
+    public function getUserPass(): ?string;
 
     /**
      * @param string $userPass
@@ -52,7 +52,7 @@ interface IngameAccountInterface
     /**
      * @return string
      */
-    public function getSex(): string;
+    public function getSex(): ?string;
 
     /**
      * @param string $sex
@@ -64,7 +64,7 @@ interface IngameAccountInterface
     /**
      * @return string
      */
-    public function getEmail(): string;
+    public function getEmail(): ?string;
 
     /**
      * @param string $email
@@ -76,7 +76,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getGroupId(): int;
+    public function getGroupId(): ?int;
 
     /**
      * Sets the group id of the user account
@@ -90,7 +90,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getState(): int;
+    public function getState(): ?int;
 
     /**
      * Sets the state of an account
@@ -104,7 +104,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getUnbanTime(): int;
+    public function getUnbanTime(): ?int;
 
     /**
      * @param int $unbanTime
@@ -116,7 +116,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getExpirationTime(): int;
+    public function getExpirationTime(): ?int;
 
     /**
      * @param int $expirationTime
@@ -128,7 +128,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getLogincount(): int;
+    public function getLogincount(): ?int;
 
     /**
      * @param int $logincount
@@ -140,7 +140,7 @@ interface IngameAccountInterface
     /**
      * @return \DateTime
      */
-    public function getLastlogin(): \DateTime;
+    public function getLastlogin(): ?\DateTime;
 
     /**
      * @param \DateTime $lastLogin
@@ -152,7 +152,7 @@ interface IngameAccountInterface
     /**
      * @return string
      */
-    public function getLastIp(): string;
+    public function getLastIp(): ?string;
 
     /**
      * @param string $lastIp
@@ -164,7 +164,7 @@ interface IngameAccountInterface
     /**
      * @return \DateTime
      */
-    public function getBirthdate(): \DateTime;
+    public function getBirthdate(): ?\DateTime;
 
     /**
      * @param \DateTime $birthdate
@@ -173,7 +173,10 @@ interface IngameAccountInterface
      */
     public function setBirthdate(\DateTime $birthdate): IngameAccountInterface;
 
-    public function getCharacterSlots(): int;
+    /**
+     * @return int
+     */
+    public function getCharacterSlots(): ?int;
 
     /**
      * @param int $characterSlots
@@ -185,7 +188,7 @@ interface IngameAccountInterface
     /**
      * @return string
      */
-    public function getPincode(): string;
+    public function getPincode(): ?string;
 
     /**
      * @param string $pincode
@@ -197,7 +200,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getPincodeChange(): int;
+    public function getPincodeChange(): ?int;
 
     /**
      * @param int $pincodeChange
@@ -209,7 +212,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getVipTime(): int;
+    public function getVipTime(): ?int;
 
     /**
      * @param int $vipTime
@@ -221,7 +224,7 @@ interface IngameAccountInterface
     /**
      * @return int
      */
-    public function getOldGroup(): int;
+    public function getOldGroup(): ?int;
 
     /**
      * @param int $oldGroup
@@ -235,19 +238,19 @@ interface IngameAccountInterface
      *
      * @return bool
      */
-    public function isActive();
+    public function isActive(): bool;
 
     /**
      * Returns whether the account is banned or not
      *
      * @return bool
      */
-    public function isBanned();
+    public function isBanned(): bool;
 
     /**
      * @return UserInterface
      */
-    public function getOwner(): UserInterface;
+    public function getOwner(): ?UserInterface;
 
     /**
      * @param UserInterface $owner

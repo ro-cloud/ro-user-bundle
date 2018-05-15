@@ -168,7 +168,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getAccountId(): int
+    public function getAccountId(): ?int
     {
         return $this->accountId;
     }
@@ -188,7 +188,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return string
      */
-    public function getUserid(): string
+    public function getUserid(): ?string
     {
         return $this->userid;
     }
@@ -208,7 +208,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return string
      */
-    public function getUserPass(): string
+    public function getUserPass(): ?string
     {
         return $this->userPass;
     }
@@ -228,7 +228,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return string
      */
-    public function getSex(): string
+    public function getSex(): ?string
     {
         return $this->sex;
     }
@@ -248,7 +248,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -268,7 +268,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getGroupId(): int
+    public function getGroupId(): ?int
     {
         return $this->groupId;
     }
@@ -288,7 +288,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getState(): int
+    public function getState(): ?int
     {
         return $this->state;
     }
@@ -308,7 +308,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getUnbanTime(): int
+    public function getUnbanTime(): ?int
     {
         return $this->unbanTime;
     }
@@ -328,7 +328,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getExpirationTime(): int
+    public function getExpirationTime(): ?int
     {
         return $this->expirationTime;
     }
@@ -348,7 +348,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getLogincount(): int
+    public function getLogincount(): ?int
     {
         return $this->logincount;
     }
@@ -368,7 +368,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return \DateTime
      */
-    public function getLastlogin(): \DateTime
+    public function getLastlogin(): ?\DateTime
     {
         return $this->lastlogin;
     }
@@ -388,7 +388,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return string
      */
-    public function getLastIp(): string
+    public function getLastIp(): ?string
     {
         return $this->lastIp;
     }
@@ -417,7 +417,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return \DateTime
      */
-    public function getBirthdate(): \DateTime
+    public function getBirthdate(): ?\DateTime
     {
         return $this->birthdate;
     }
@@ -437,7 +437,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getCharacterSlots(): int
+    public function getCharacterSlots(): ?int
     {
         return $this->characterSlots;
     }
@@ -457,7 +457,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return string
      */
-    public function getPincode(): string
+    public function getPincode(): ?string
     {
         return $this->pincode;
     }
@@ -477,7 +477,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getPincodeChange(): int
+    public function getPincodeChange(): ?int
     {
         return $this->pincodeChange;
     }
@@ -497,7 +497,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getVipTime(): int
+    public function getVipTime(): ?int
     {
         return $this->vipTime;
     }
@@ -517,7 +517,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return int
      */
-    public function getOldGroup(): int
+    public function getOldGroup(): ?int
     {
         return $this->oldGroup;
     }
@@ -557,7 +557,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @return UserInterface
      */
-    public function getOwner(): UserInterface
+    public function getOwner(): ?UserInterface
     {
         return $this->owner;
     }
