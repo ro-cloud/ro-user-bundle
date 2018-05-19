@@ -156,7 +156,7 @@ class IngameAccount implements IngameAccountInterface
     /**
      * @var OwnerInterface
      *
-     * @ORM\ManyToOne(targetEntity="RoCloud\UserBundle\Entity\OwnerInterface", inversedBy="accounts")
+     * @ORM\ManyToOne(targetEntity="RoCloud\UserBundle\Entity\OwnerInterface")
      */
     protected $owner;
 
